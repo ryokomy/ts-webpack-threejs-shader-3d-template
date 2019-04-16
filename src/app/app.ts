@@ -4,12 +4,12 @@ import {
   WebGLRenderer,
 } from 'three';
 
-import {SampleShaderMesh} from './SampleShaderMesh';
+import {KyuzanShaderMesh} from './KyuzanShaderMaterial';
 
 export class App {
   private readonly scene: Scene;
   private readonly camera: Camera;
-  private sampleShaderMesh: SampleShaderMesh;
+  private kyuzanShaderMesh: KyuzanShaderMesh;
   private readonly renderer: WebGLRenderer;
 
   constructor() {
@@ -19,18 +19,19 @@ export class App {
     this.camera.position.z = 1;
 
     // SampleShaderMesh
-    this.sampleShaderMesh = new SampleShaderMesh();
+    this.kyuzanShaderMesh = new KyuzanShaderMesh();
 
     // scene
     this.scene = new Scene();
-    this.scene.add(this.sampleShaderMesh);
+    this.scene.add(this.kyuzanShaderMesh);
 
     // renderer
     this.renderer = new WebGLRenderer({
       antialias: true,
       canvas: document.getElementById('main-canvas') as HTMLCanvasElement,
     });
-    this.renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
+    // this.renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
+    this.renderer.setPixelRatio(1);
 
     this.adjustCanvasSize();
     this.render();
@@ -46,7 +47,7 @@ export class App {
   }
 
   private update() {
-    this.sampleShaderMesh.update();
+    this.kyuzanShaderMesh.update();
   }
 
   private adjustCanvasSize() {
