@@ -1,32 +1,38 @@
 import {
+  AxesHelper,
   Camera,
   PerspectiveCamera,
   Scene,
   WebGLRenderer,
+  Vector3,
 } from 'three';
 
-import {Mountain2D} from './Mountain2D';
+import {Sample3DTexture} from './Sameple3DTexture';
 
 export class App {
   private readonly scene: Scene;
-  private readonly camera: Camera;
-  private mesh: Mountain2D;
+  private camera: Camera;
+  private mesh: Sample3DTexture;
   private readonly renderer: WebGLRenderer;
 
   constructor() {
 
-    // camera
-    // this.camera =  new Camera();
-    this.camera = new PerspectiveCamera();
-    this.camera.position.y = 1;
-    this.camera.position.z = 1;
-
     // SampleShaderMesh
-    this.mesh = new Mountain2D();
+    this.mesh = new Sample3DTexture();
 
     // scene
     this.scene = new Scene();
     this.scene.add(this.mesh);
+
+    // camera
+    // this.camera =  new Camera();
+    this.camera = new PerspectiveCamera(45, innerWidth / innerHeight, 1, 1000);
+    this.camera.position.set(200, 300, 500);
+    this.camera.lookAt(this.mesh.position);
+
+    const axis = new AxesHelper(1000);
+    axis.position.set(0, 0, 0);
+    this.scene.add(axis);
 
     // renderer
     this.renderer = new WebGLRenderer({
@@ -51,6 +57,8 @@ export class App {
 
   private update() {
     this.mesh.update();
+    // this.camera = this.camera.rotateOnWorldAxis((new Vector3(1, 1, 1)).normalize(), 1 / 360.);
+    // this.camera = this.camera.translateZ(10);
   }
 
   private adjustCanvasSize() {
