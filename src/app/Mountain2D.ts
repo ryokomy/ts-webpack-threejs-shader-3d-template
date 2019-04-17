@@ -1,4 +1,6 @@
 import {
+    BoxGeometry,
+    CircleGeometry,
     Mesh,
     PlaneGeometry,
     ShaderMaterial,
@@ -15,7 +17,7 @@ const vertexShader = require('../shaders/kyuzan.vs')
 // tslint:disable-next-line
 const noiseTexturePath = require('../textures/graynoise.png')
 
-export class KyuzanShaderMesh extends Mesh {
+export class Mountain2D extends Mesh {
 
     private shaderMaterialParams: ShaderMaterialParameters;
     private startTime: number;
@@ -42,6 +44,8 @@ export class KyuzanShaderMesh extends Mesh {
 
         // geometry
         this.geometry = new PlaneGeometry(2, 2);
+        // this.geometry = new BoxGeometry(1, 1, 1);
+        // this.geometry = new CircleGeometry(1, 64);
 
         global.console.log(window.innerWidth);
         this.shaderMaterialParams.uniforms.resolution.value.x = window.innerWidth;

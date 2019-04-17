@@ -1,29 +1,32 @@
 import {
   Camera,
+  PerspectiveCamera,
   Scene,
   WebGLRenderer,
 } from 'three';
 
-import {KyuzanShaderMesh} from './KyuzanShaderMaterial';
+import {Mountain2D} from './Mountain2D';
 
 export class App {
   private readonly scene: Scene;
   private readonly camera: Camera;
-  private kyuzanShaderMesh: KyuzanShaderMesh;
+  private mesh: Mountain2D;
   private readonly renderer: WebGLRenderer;
 
   constructor() {
 
     // camera
-    this.camera =  new Camera();
+    // this.camera =  new Camera();
+    this.camera = new PerspectiveCamera();
+    this.camera.position.y = 1;
     this.camera.position.z = 1;
 
     // SampleShaderMesh
-    this.kyuzanShaderMesh = new KyuzanShaderMesh();
+    this.mesh = new Mountain2D();
 
     // scene
     this.scene = new Scene();
-    this.scene.add(this.kyuzanShaderMesh);
+    this.scene.add(this.mesh);
 
     // renderer
     this.renderer = new WebGLRenderer({
@@ -47,7 +50,7 @@ export class App {
   }
 
   private update() {
-    this.kyuzanShaderMesh.update();
+    this.mesh.update();
   }
 
   private adjustCanvasSize() {

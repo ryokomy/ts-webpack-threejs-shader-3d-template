@@ -34,7 +34,8 @@ float clouds( in vec3 p){
 
 void main()	{
 
-    _time = time*4.8+floor(time*0.1)*120.0+210.0;
+    // _time = time*4.8+floor(time*0.1)*120.0+210.0;
+    _time = time*1.2+time*0.1*60.0+210.0;
     // _time = time;
 
     vec2 uv     = gl_FragCoord.xy/(resolution.xx*0.5)-vec2(1.0,resolution.y/resolution.x);
@@ -69,6 +70,7 @@ void main()	{
 	vec3  cloud = vec3(0.95,0.94,0.90)+light*0.1;
 
     // gl_FragColor = vec4(ground,1.0);
-    gl_FragColor = vec4(sqrt(smoothstep(0.1,1.0,mix(mix(ground,sky,h),cloud,f))),1.0);
+    // gl_FragColor = vec4(sqrt(smoothstep(0.1,1.0,mix(mix(ground,sky,h),cloud,f))),1.0);
+    gl_FragColor = vec4(vec3(sqrt(smoothstep(0.1,1.0,mix(mix(ground,sky,h),cloud,f))).r),1.0);
 
 }
