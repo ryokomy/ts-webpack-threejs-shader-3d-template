@@ -21,11 +21,13 @@ export class Mountain3D extends Mesh {
 
     private shaderMaterialParams: ShaderMaterialParameters;
     private startTime: number;
+    private lastTime: number;
 
     constructor() {
         super();
 
         this.startTime = Date.now() / 1000.0;
+        this.lastTime = this.startTime;
 
         const textureLoader = new TextureLoader();
         const texture = textureLoader.load(texturePath);
@@ -39,13 +41,13 @@ export class Mountain3D extends Mesh {
                 time: { type: 'f', value: 1.0 },
             },
             vertexShader,
-            // wireframe: true,
+            wireframe: true,
         };
         this.material = new ShaderMaterial(this.shaderMaterialParams);
 
         // geometry
-        this.geometry = new PlaneGeometry(300, 300, 50, 50);
-        // this.geometry.rotateX(70);
+        this.geometry = new PlaneGeometry(500, 500, 100, 100);
+        this.geometry.rotateX(-Math.PI / 2.0);
         // this.geometry.rotateY(20);
         // this.geometry = new BoxGeometry(1, 1, 1);
         // this.geometry = new CircleGeometry(1, 64);
@@ -56,6 +58,10 @@ export class Mountain3D extends Mesh {
     }
 
     public update() {
+        const now = Date.now() / 1000.0;
+        const duration = now - this.lastTime;
+        this.lastTime = now;
+        this.geometry.rotateY(2 * Math.PI * duration * .01);
         this.shaderMaterialParams.uniforms.resolution.value.x = window.innerWidth;
         this.shaderMaterialParams.uniforms.resolution.value.y = window.innerHeight;
         this.shaderMaterialParams.uniforms.time.value = Date.now() / 1000.0 - this.startTime;

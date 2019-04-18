@@ -7,18 +7,20 @@ import {
   Vector3,
 } from 'three';
 
-import {Sample3DTexture} from './Sameple3DTexture';
+import {Mountain3D} from './Mountain3D';
 
 export class App {
   private readonly scene: Scene;
   private camera: Camera;
-  private mesh: Sample3DTexture;
+  private mesh: Mountain3D;
   private readonly renderer: WebGLRenderer;
+
+  private lastTime: number = Date.now() / 1000.;
 
   constructor() {
 
     // SampleShaderMesh
-    this.mesh = new Sample3DTexture();
+    this.mesh = new Mountain3D();
 
     // scene
     this.scene = new Scene();
@@ -28,7 +30,7 @@ export class App {
     // this.camera =  new Camera();
     this.camera = new PerspectiveCamera(45, innerWidth / innerHeight, 1, 1000);
     this.camera.position.set(200, 300, 500);
-    this.camera.lookAt(this.mesh.position);
+    this.camera.lookAt(new Vector3(this.mesh.position.x, this.mesh.position.y - 50., this.mesh.position.z));
 
     const axis = new AxesHelper(1000);
     axis.position.set(0, 0, 0);
@@ -56,9 +58,9 @@ export class App {
   }
 
   private update() {
+    const now = Date.now() / 1000.0;
+    this.lastTime = now;
     this.mesh.update();
-    // this.camera = this.camera.rotateOnWorldAxis((new Vector3(1, 1, 1)).normalize(), 1 / 360.);
-    // this.camera = this.camera.translateZ(10);
   }
 
   private adjustCanvasSize() {
