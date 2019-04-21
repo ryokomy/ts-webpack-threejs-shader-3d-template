@@ -7,9 +7,9 @@ import {
 } from 'three';
 
 // tslint:disable-next-line
-const fragmentShader = require('../shaders/shader.fs') // tslint-disable-line no-alert
+const fragmentShader = require('../../shaders/shader.fs') // tslint-disable-line no-alert
 // tslint:disable-next-line
-const vertexShader = require('../shaders/shader.vs') // eslint-disable-line no-alert
+const vertexShader = require('../../shaders/shader.vs') // eslint-disable-line no-alert
 
 export class SampleShaderMesh extends Mesh {
 

@@ -11,11 +11,11 @@ import {
 } from 'three';
 
 // tslint:disable-next-line
-const fragmentShader = require('../shaders/mountain2d.fs')
+const fragmentShader = require('../../shaders/mountain2d.fs')
 // tslint:disable-next-line
-const vertexShader = require('../shaders/mountain2d.vs')
+const vertexShader = require('../../shaders/mountain2d.vs')
 // tslint:disable-next-line
-const noiseTexturePath = require('../textures/graynoise.png')
+const noiseTexturePath = require('../../textures/graynoise.png')
 
 export class Mountain2D extends Mesh {
 

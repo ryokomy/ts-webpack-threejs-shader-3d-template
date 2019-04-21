@@ -1,17 +1,19 @@
 import {
   AxesHelper,
-  Camera,
-  PerspectiveCamera,
   Scene,
   WebGLRenderer,
   Vector3,
 } from 'three';
 
-import {Mountain3D} from './Mountain3D';
+import { EasyPerspectiveCamera } from './systems/EasyPerspectiveCamera';
+import { EasyOrbitControls } from './systems/EasyOrbitControls';
+
+import {Mountain3D} from './visuals/Mountain3D';
 
 export class App {
   private readonly scene: Scene;
-  private camera: Camera;
+  private camera: EasyPerspectiveCamera;
+  private controls: EasyOrbitControls;
   private mesh: Mountain3D;
   private readonly renderer: WebGLRenderer;
 
@@ -26,12 +28,7 @@ export class App {
     this.scene = new Scene();
     this.scene.add(this.mesh);
 
-    // camera
-    // this.camera =  new Camera();
-    this.camera = new PerspectiveCamera(45, innerWidth / innerHeight, 1, 1000);
-    this.camera.position.set(200, 300, 500);
-    this.camera.lookAt(new Vector3(this.mesh.position.x, this.mesh.position.y - 50., this.mesh.position.z));
-
+    // axis
     const axis = new AxesHelper(1000);
     axis.position.set(0, 0, 0);
     this.scene.add(axis);
@@ -43,6 +40,14 @@ export class App {
     });
     // this.renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
     this.renderer.setPixelRatio(1);
+
+    // camera
+    this.camera = new EasyPerspectiveCamera();
+    this.camera.easySetUp();
+
+    // controls
+    this.controls = new EasyOrbitControls(this.camera, this.renderer.domElement);
+    this.controls.easySetUp();
 
     this.adjustCanvasSize();
     this.render();
@@ -61,6 +66,8 @@ export class App {
     const now = Date.now() / 1000.0;
     this.lastTime = now;
     this.mesh.update();
+
+    this.controls.update();
   }
 
   private adjustCanvasSize() {
