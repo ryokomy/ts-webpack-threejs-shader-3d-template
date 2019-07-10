@@ -1,10 +1,12 @@
 # Template: TypeScript + Webpack + Three.js + Shader
 
-![](https://github.com/ryokomy/ts-webpack-threejs-shader-template/blob/master/img/shader.gif)
+<img src="https://github.com/ryokomy/ts-webpack-threejs-shader-3d-template/blob/master/img/shader.gif" width="720">
+<img src="https://github.com/ryokomy/ts-webpack-threejs-shader-3d-template/blob/master/img/shader_camera.gif" width="720">
 
 ## Features
 :fire: TypeScript :fire:  
 :fire: Three.js :fire:  
+:fire: Hot Reload :fire:  
 :fire: External shader files !! Not in html !! :fire:  
 
 ## How to Use
